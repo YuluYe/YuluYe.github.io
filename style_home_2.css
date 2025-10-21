@@ -1,0 +1,311 @@
+html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#Interest .introduce{
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    display: flex;
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0.5vw); }
+} 
+#Interest .introduce .intr-main{
+    display: flex;
+    gap: 20px; 
+    align-items: stretch; 
+}
+
+#Interest .introduce .intr-main .l{
+    margin-left: 160px;
+    margin-right: 60px;
+}
+
+#Interest .introduce .intr-main .r{
+    line-height: 50px;
+    font-size: 18px;
+    color: White;
+}
+
+#Interest .trip{
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    display: flex;
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0.5vw); }
+} 
+
+#Interest .trip-t{
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    display: flex;
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 1.5s ease-in-out;
+    border-top: white solid;
+}
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0.5vw); }
+} 
+
+#Interest .trip-t .trip-l{
+    margin-left: 160px;
+    margin-right: 60px;
+    color: White;
+}
+
+#Interest .trip .trip-1{
+    display: flex;
+    gap: 20px; 
+    align-items: stretch; 
+}
+
+
+#Interest .trip .trip-1 .trip-r{
+    display: flex;
+    justify-content: space-between; 
+    gap: 15px; 
+    flex-wrap: wrap;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+.c , .m{
+    margin-left: 160px;
+    margin-right: 60px;
+    flex: 1;
+    min-width: 230px; 
+    padding: 15px;
+    box-sizing: border-box; 
+    color: White;
+}
+.u {
+    margin-left: 160px;
+    margin-right: 60px;
+    flex: 1;
+    min-width: 80px; 
+    padding: 15px;
+    box-sizing: border-box; 
+    color: White;
+}
+
+.j{
+    margin-left: 160px;
+    margin-right: 60px;
+    flex: 1;
+    min-width: 80px; 
+    padding: 15px;
+    box-sizing: border-box; 
+    color: White;
+}
+
+
+
+#Interest{
+    background: url(./img/photo.png) no-repeat center center fixed;
+    background-size: cover;  
+}
+#Interest .all{
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; 
+    align-items: stretch; 
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0.5vw); }
+} 
+
+#Interest .hobby{
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    display: flex;
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 1.5s ease-in-out;
+    border-top: white solid;
+}
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0.5vw); }
+} 
+#Interest .hobby .hobby1{
+    margin-left: 160px;
+    margin-right: 60px;
+    color: White;
+}
+
+#Interest .all .photopage{
+    margin-left: 160px; 
+    padding-top: 10px;
+    padding-bottom: 100px;
+    text-align: center;
+    flex: 1;
+}
+#Interest .all .photopage .ph{
+
+    width: 400px;
+    height: auto;
+    margin: 0 auto ;
+    padding: 130px 10px 40px 10px;
+    position: relative;
+    background: rgba(116, 120, 122, 0.5);
+    border-radius: 20px;
+}
+#Interest .all .photopage .ph i{
+    background: url(./img/pic6.JPG) no-repeat center center;
+    background-size: cover;
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-top: -70px;
+}
+#Interest .all .photopage .ph h3{
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    line-height: 60px;
+}
+
+#Interest .all .photopage .ph a{
+    display: inline-block;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid white;
+    border-radius: 30px;
+    padding: 9px 30px;
+    margin-top: 30px;
+    text-decoration: none;
+    transition: all 0.3 ease;
+}
+#Interest .all .photopage .ph a:hover{
+    background-color: white;
+    color: #b06e04;
+    transform: scale(1.05);
+}
+#Interest .all .paintingpage{
+    padding-top: 10px;
+    padding-bottom: 100px;
+    text-align: center;
+    flex: 1;
+}
+#Interest .all .paintingpage .paint{
+    width: 400px;
+    height: auto;
+    margin: 0 auto ;
+    padding: 130px 10px 40px 10px;
+    position: relative;
+    background: rgba(116, 120, 122, 0.5);
+    border-radius: 20px;
+
+}
+#Interest .all .paintingpage .paint i{
+    background: url(./img/paint2.png) no-repeat center center;
+    background-size: cover;
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-top: -70px;
+}
+#Interest .all .paintingpage .paint h3{
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    line-height: 60px;
+}
+
+#Interest .all .paintingpage .paint a{
+    display: inline-block;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid white;
+    border-radius: 30px;
+    padding: 9px 30px;
+    margin-top: 30px;
+    text-decoration: none;
+    transition: all 0.3 ease;
+}
+#Interest .all .paintingpage .paint a:hover{
+    background-color: white;
+    color: #b06e04;
+    transform: scale(1.05);
+}
+
+#Interest .all .travelpage{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    flex: 1;
+}
+#Interest .all .travelpage .travel{
+    width: 400px;
+    height: auto;
+    margin: 0 auto ;
+    padding: 130px 10px 40px 10px;
+    position: relative;
+    background: rgba(116, 120, 122, 0.5);
+    border-radius: 20px;
+
+}
+#Interest .all .travelpage .travel i{
+    background: url(./img/travel.png) no-repeat center center;
+    background-size: cover;
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-top: -70px;
+}
+#Interest .all .travelpage .travel h3{
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    line-height: 60px;
+}
+
+#Interest .all .travelpage .travel a{
+    display: inline-block;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid white;
+    border-radius: 30px;
+    padding: 9px 30px;
+    margin-top: 30px;
+    text-decoration: none;
+    transition: all 0.3 ease;
+}
+#Interest .all .travelpage .travel a:hover{
+    background-color: white;
+    color: #b06e04;
+    transform: scale(1.05);
+}
