@@ -2,22 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 关键修改：确保 viewport 设置正确，禁止用户缩放导致布局错乱 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>欢迎来到我的首页</title>
+    
+    <!-- 保留原有的外部样式表 -->
     <link rel="stylesheet" href="./style_new.css"/>
     <link rel="stylesheet" href="./style_base.css"/>
+
+    <!-- 新增：专门用于适配移动端的内部样式 -->
+    <style>
+        /* 全局重置，防止默认边距导致手机端出现滚动条 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden; /* 防止横向滚动 */
+        }
+
+        /* 背景容器适配 */
+        #bkground {
+            min-height: 100vh; /* 确保至少占满整个屏幕高度 */
+            display: flex;     /* 使用 Flexbox 居中内容 */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;     /* 给手机端留出边缘距离 */
+            width: 100%;
+        }
+
+        /* 信息卡片适配 */
+        .my-information {
+            text-align: center;
+            width: 100%;
+            max-width: 600px; /* 在大屏幕上限制最大宽度，避免太宽 */
+            padding: 2rem;
+            /* 可选：添加一点背景或阴影让内容更突出，视你的原设计而定 */
+            /* background: rgba(255, 255, 255, 0.9); */
+            /* border-radius: 15px; */
+        }
+
+        /* 图标适配 */
+        .my-information i {
+            display: inline-block;
+            margin-bottom: 15px;
+            /* 假设这是一个头像或图标，确保它不会太大 */
+            max-width: 100px; 
+            height: auto;
+        }
+
+        /* 字体大小响应式调整 */
+        .my-information h3 {
+            font-size: 2rem; /* 默认大小 */
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .my-information h4, 
+        .my-information h5 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        .my-information p {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        /* 按钮适配：增大点击区域，方便手指触摸 */
+        .my-information a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px; /* 增加内边距，让按钮更好点 */
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-radius: 25px; /* 圆角按钮更适合移动端 */
+            transition: all 0.3s ease;
+            /* 如果原CSS没有背景色，这里可以加一个默认的，方便看见按钮 */
+            background-color: #aeaeaf8c; 
+            color: white;
+        }
+
+        .my-information a:active {
+            transform: scale(0.95); /* 点击时的反馈效果 */
+        }
+
+        /* --- 媒体查询：针对平板和手机的具体调整 --- */
+        
+        /* 平板及以下 (宽度小于 768px) */
+        @media (max-width: 768px) {
+            #bkground {
+                padding: 15px;
+            }
+            .my-information h3 {
+                font-size: 1.8rem;
+            }
+            .my-information h4, 
+            .my-information h5 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* 手机及以下 (宽度小于 480px) */
+        @media (max-width: 480px) {
+            .my-information {
+                padding: 1rem; /* 减小内边距，利用更多空间 */
+            }
+            
+            .my-information h3 {
+                font-size: 1.5rem; /* 缩小标题 */
+            }
+            
+            .my-information h4, 
+            .my-information h5 {
+                font-size: 1rem;
+            }
+
+            .my-information p {
+                font-size: 0.95rem;
+            }
+
+            .my-information a {
+                width: 100%; /* 手机上让按钮占满整行，更容易点击 */
+                padding: 15px 0;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="bkground">
         <div class="my-information">
-            <i></i>
+            <!-- 如果有头像图片，建议在这里用 <img> 标签，如果是图标字体保持 <i> -->
+            <i></i> 
             <h3>Yulu&nbsp;Ye</h3>
             <h4>Ningbo University</h4>
             <h5>College Of Teacher Education</h5> 
-            <p>Welcome to my personal website! </p> 
-            <p>If you want to know more about me</p>
-            <p>please click</p>
-            <a href="./phfriendly.html">&nbsp;&nbsp;Enter&nbsp;&nbsp;</a> 
+            <p>Welcome to my personal website!</p> 
+            <p>If you want to know more about me,</p>
+            <p>please click below:</p>
+            <a href="./phfriendly.html">Enter</a> 
         </div>
     </div>
 </body>
