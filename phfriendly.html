@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 关键：确保移动端正确缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yulu Ye | Academic Portfolio</title>
+    
+    <!-- 引入高级字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 高级配色与变量 --- */
+        :root {
+            --primary: #2A3B4C;
+            --accent: #C5A065;
+            --bg-body: #F9F9F9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F2F4F8;
+            --text-main: #1A1A1A;
+            --text-body: #4A4A4A;
+            --text-meta: #888888;
+            --border-light: #EAEAEA;
+            
+            --font-serif: 'Noto Serif SC', serif; 
+            --font-sans: 'Noto Sans SC', sans-serif; 
+            
+            --spacing-unit: 8px;
+            --container-width: 1100px; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            line-height: 1.8;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* 防止横向滚动条 */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            color: var(--text-main);
+            font-weight: 600;
+            word-wrap: break-word; /* 防止长单词溢出 */
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- 布局容器 --- */
+        .wrapper {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 40px;
+            background: #fff;
+            box-shadow: 0 0 50px rgba(0,0,0,0.03);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- 导航栏 (移动端优化) --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            z-index: 1001;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-meta);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* 移动端菜单按钮 (默认隐藏) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* --- 通用板块设置 --- */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        section:last-child { border-bottom: none; }
+
+        .section-header {
+            margin-bottom: 60px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            flex-wrap: wrap; /* 允许换行 */
+            gap: 10px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            letter-spacing: -0.5px;
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            color: var(--text-meta);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-left: 20px;
+        }
+
+        /* --- 1. Hero Section --- */
+        .hero {
+            padding: 80px 0 60px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            background: #eee;
+            transition: transform 0.5s ease;
+            border-radius: 2px; /* 轻微圆角适配移动端 */
+        }
+        
+        .hero-img:hover { transform: scale(1.02); }
+
+        .hero-image-container::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--primary);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .hero-meta {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .hero-summary {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-body);
+            margin-bottom: 40px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 30px;
+        }
+
+        .hero-contact {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            color: var(--text-meta);
+            font-family: var(--font-sans);
+            flex-wrap: wrap; /* 允许换行 */
+        }
+
+        .hero-contact a {
+            border-bottom: 1px solid transparent;
+        }
+        .hero-contact a:hover {
+            color: var(--primary);
+            border-bottom: 1px solid var(--primary);
+        }
+
+        /* --- 2. About --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr; /* 固定左侧标签宽度 */
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .about-label {
+            font-family: var(--font-serif);
+            font-size: 14px;
+            color: var(--text-meta);
+            writing-mode: vertical-rl; 
+            transform: rotate(180deg);
+            height: fit-content;
+            letter-spacing: 5px;
+            text-align: center;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            text-align: justify;
+            font-size: 16px;
+        }
+
+        /* --- 3. Research --- */
+        .research-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .research-item:last-child { margin-bottom: 0; }
+
+        .research-item::before {
+            content: '';
+            position: absolute;
+            left: 59px;
+            top: 0;
+            bottom: -60px;
+            width: 1px;
+            background: var(--border-light);
+        }
+        .research-item:last-child::before { display: none; }
+
+        .research-time {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-meta);
+            text-align: right;
+            padding-top: 5px;
+            font-weight: 500;
+        }
+
+        .research-card {
+            background: var(--bg-subtle);
+            padding: 30px;
+            border-radius: 2px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .research-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(42, 59, 76, 0.08);
+            border-left: 3px solid var(--accent);
+            background: #fff;
+        }
+
+        .research-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.4;
+        }
+
+        .research-role {
+            font-size: 13px;
+            color: var(--text-meta);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .research-details li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        .research-details li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 500;
+            border-bottom: 1px dotted var(--border-light);
+        }
+
+        /* --- 4. Education & Skills --- */
+        .grid-module {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .module-card {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            padding: 30px;
+            height: 100%; /* 确保等高 */
+        }
+
+        .module-card h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--primary);
+        }
+
+        .edu-item { margin-bottom: 25px; }
+        .edu-item:last-child { margin-bottom: 0; }
+
+        .edu-school {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; /* 防止小屏幕换行失败 */
+            gap: 10px;
+        }
+        
+        .edu-degree {
+            font-size: 14px;
+            color: var(--text-body);
+            margin-top: 5px;
+        }
+
+        .edu-gpa {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .course-tag {
+            font-size: 12px;
+            background: var(--bg-subtle);
+            padding: 4px 10px;
+            border-radius: 2px;
+            color: var(--text-body);
+        }
+
+        .skill-group { margin-bottom: 20px; }
+        .skill-group:last-child { margin-bottom: 0; }
+
+        .skill-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-meta);
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .skill-list {
+            font-size: 15px;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* --- 5. Awards --- */
+        .award-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--border-light);
+            font-size: 15px;
+            flex-wrap: wrap; /* 手机端换行 */
+            gap: 10px;
+        }
+        .award-row:last-child { border-bottom: none; }
+
+        .award-name { font-weight: 500; color: var(--text-main); }
+        .award-date { font-family: var(--font-sans); font-size: 13px; color: var(--text-meta); }
+
+        /* --- 6. Portfolio --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 稍微增大最小宽度 */
+            gap: 30px;
+        }
+
+        .portfolio-card {
+            background: var(--bg-subtle);
+            padding: 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover .portfolio-card {
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+        }
+
+        .p-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-family: var(--font-serif);
+        }
+
+        .p-desc {
+            font-size: 13px;
+            color: var(--text-meta);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .p-action {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .p-action::after {
+            content: '→';
+            margin-left: 8px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .portfolio-item:hover .p-action::after { margin-left: 12px; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary);
+            color: #fff;
+            padding: 60px 20px; /* 增加左右内边距 */
+            text-align: center;
+        }
+
+        .footer-msg {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #fff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-email {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .footer-update {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        /* =========================================
+           响应式媒体查询 (Mobile & Tablet)
+           ========================================= */
+        
+        /* 平板及小屏幕笔记本 (Max 900px) */
+        @media (max-width: 900px) {
+            .wrapper { padding: 0 30px; }
+            .hero { gap: 40px; }
+            .hero-content h1 { font-size: 42px; }
+            .grid-module { grid-template-columns: 1fr; gap: 30px; } /* 教育背景变单列 */
+            .module-card { height: auto; }
+        }
+
+        /* 手机竖屏 (Max 768px) */
+        @media (max-width: 768px) {
+            .wrapper { padding: 0 20px; }
+            
+            /* 导航栏改造 */
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: #fff;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                transition: right 0.3s ease-in-out;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 16px; }
+
+            /* Hero 区域 */
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding-top: 40px;
+                text-align: center;
+            }
+            .hero-image-container {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .hero-image-container::before {
+                top: -10px; left: -10px;
+            }
+            .hero-content h1 { font-size: 36px; }
+            .hero-summary {
+                text-align: left; /* 正文保持左对齐易读 */
+                border-top: 1px solid var(--border-light);
+                padding-top: 30px;
+            }
+            .hero-contact {
+                justify-content: center;
+                gap: 20px;
+            }
+
+            /* About 区域 */
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .about-label {
+                writing-mode: horizontal-tb;
+                transform: none;
+                text-align: left;
+                margin-bottom: 10px;
+                font-weight: 700;
+                color: var(--primary);
+            }
+            .about-text p { text-align: left; }
+
+            /* Research 区域 */
+            .research-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-bottom: 40px;
+            }
+            .research-item::before {
+                left: 19px;
+                bottom: -40px;
+            }
+            .research-time {
+                text-align: left;
+                font-size: 14px;
+                color: var(--primary);
+                font-weight: 700;
+                border-bottom: 1px solid var(--border-light);
+                padding-bottom: 5px;
+                margin-bottom: 10px;
+            }
+            .research-card { padding: 20px; }
+
+            /* Section Header */
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .section-subtitle { margin-left: 0; }
+
+            /* Awards */
+            .award-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .award-date { font-size: 12px; }
+
+            /* Portfolio */
+            .portfolio-grid {
+                grid-template-columns: 1fr; /* 强制单列 */
+            }
+        }
+
+        /* 超小屏幕 (Max 480px) */
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 32px; }
+            .section-title { font-size: 28px; }
+            .footer-msg { font-size: 18px; }
+            .research-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- 导航 -->
+    <nav>
+        <div class="nav-logo">YULU YE</div>
+        
+        <!-- 移动端菜单按钮 -->
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-links" id="nav-links">
+            <a href="#about" onclick="closeMenu()">About</a>
+            <a href="#research" onclick="closeMenu()">Research</a>
+            <a href="#education" onclick="closeMenu()">Education</a>
+            <a href="#skills" onclick="closeMenu()">Skills</a>
+            <a href="#awards" onclick="closeMenu()">Awards</a>
+            <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <header class="hero">
+        <div class="hero-image-container">
+            <!-- 请确保你的 img 文件夹中有 P2.png，或者替换为网络图片链接 -->
+            <!-- 如果没有图片，这里会用灰色背景占位 -->
+            <img src="./img/P2.png" alt="Yulu Ye" class="hero-img" onerror="this.style.background='#ddd'">
+        </div>
+        <div class="hero-content">
+            <span class="hero-meta">Applied Psychology Candidate</span>
+            <h1>Yulu Ye</h1>
+            <div class="hero-summary">
+                <p><strong>宁波大学应用心理学本科生</strong></p>
+                <p>能够熟练使用<strong>PsychoPy/jspsych</strong>进行实验设计，掌握<strong>SPSS/R/Python</strong>等数据分析方法，具备规范的心理学实证研究与学术写作能力。对认知机制、行为决策等方向保持开放研究兴趣，计划在研究生阶段以严谨实证研究，深入探索人类心理与行为的内在规律。</p>
+            </div>
+            <div class="hero-contact">
+                <a href="mailto:2225172769@qq.com">2225172769@qq.com</a>
+                <a href="#">GitHub / Scholar</a>
+                <a href="#">Ningbo, China</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. About -->
+    <section id="about">
+        <div class="section-header">
+            <h2 class="section-title">关于我</h2>
+            <span class="section-subtitle">ABOUT ME</span>
+        </div>
+        <div class="about-grid">
+            <div class="about-label">RESEARCH INTERESTS</div>
+            <div class="about-text">
+                <p>在校系统学习心理学理论与研究方法，具备扎实的科研素养与实践能力。</p>
+                <p>擅长<strong>实验设计</strong>、<strong>数据处理</strong>与方案优化，做事<strong>严谨细致</strong>，<strong>问题意识与执行力</strong>突出。熟练运用实验编程与统计分析工具，具备规范的实证研究能力。</p>
+                <p>读研期间希望在心理学领域深耕探索，结合自身科研技能参与课题研究，以严谨务实的态度开展学术工作，不断提升研究水平。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Research Experience -->
+    <section id="research">
+        <div class="section-header">
+            <h2 class="section-title">科研经历</h2>
+            <span class="section-subtitle">RESEARCH EXPERIENCE</span>
+        </div>
+
+        <!-- Item 1 -->
+        <div class="research-item">
+            <div class="research-time">2024.03<br>—<br>2025.03</div>
+            <div class="research-card">
+                <h3 class="research-title">不确定性的低容忍度对社交焦虑的影响</h3>
+                <span class="research-role">核心成员 | 文献搜集与文本撰写</span>
+                <div class="research-details">
+                    <ul>
+                        <li><strong>文献梳理：</strong>系统查阅 CNKI 及 Web of Science 文献，聚焦社交焦虑、不确定性容忍度，协助负责人确立研究假设与实验范式。</li>
+                        <li><strong>实验实施：</strong>编制<span class="highlight">社会情境实验材料</span>与<span class="highlight">相关问卷</span>，招募<span class="highlight">120名</span>被试。</li>
+                        <li><strong>成果产出：</strong>协助撰写研究报告，成功结项。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="research-item">
+            <div class="research-time">2025.03<br>—<br>2026.03</div>
+            <div class="research-card">
+                <h3 class="research-title">群体实体性对不同社会效价行为泛化的影响</h3>
+                <span class="research-role">项目负责人 | 院级SRIP大学生科技创新计划项目</span>
+                <div class="research-details">
+                    <ul>
+                        <li><strong>方案设计：</strong>采用3×2被试内实验设计，操控群体实体性、任务类型核心变量，搭建特征推断 - 转移 - 线索回忆实验流程，完成范式与研究材料优化。</li>
+                        <li><strong>统筹实施：</strong>负责<span class="highlight">被试招募、实验施测</span>全流程，严控群体实体性操控与实验规范性，系统收集实证数据并开展整理、质量校验。</li>
+                        <li><strong>数据处理：</strong>运用重复测量统计方法分析数据，检验群体实体性与社会效价的交互作用，精准量化行为泛化实验结果。</li>
+                        <li><strong>成果输出：</strong>完成核心实证研究，主导撰写完整哲学社会科学类研究报告；全程把控项目进度，熟练掌握社会心理学实证研究全流程规范。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Education & Skills -->
+    <section id="education">
+        <div class="section-header">
+            <h2 class="section-title">教育背景 & 技能</h2>
+            <span class="section-subtitle">EDUCATION & SKILLS</span>
+        </div>
+        
+        <div class="grid-module">
+            <!-- Education Column -->
+            <div class="module-card">
+                <h3>Education</h3>
+                <div class="edu-item">
+                    <div class="edu-school">
+                        宁波大学 (Ningbo University)
+                        <span class="edu-gpa">GPA: 3.85/4.0 (Top 5%)</span>
+                    </div>
+                    <div class="edu-degree">应用心理学 本科 | 2023 - 2027</div>
+                    <div class="course-tags">
+                        <span class="course-tag">实验心理学 (95)</span>
+                        <span class="course-tag">心理测量学 (95)</span>
+                        <span class="course-tag">普通心理学 (93)</span>
+                        <span class="course-tag">计算机编程 (92)</span>
+                    </div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-school">
+                        英国女王大学 (QUB)
+                        <span class="edu-gpa">Complete</span>
+                    </div>
+                    <div class="edu-degree">暑期访学 | 2025.7 - 2025.8</div>
+                    <div class="course-tags">
+                        <span class="course-tag">Adv. Quantitative Methods</span>
+                        <span class="course-tag">Cross-Cultural Psych</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Column -->
+            <div class="module-card" id="skills">
+                <h3>Technical Skills</h3>
+                <div class="skill-group">
+                    <span class="skill-label">Data Analysis & Tools</span>
+                    <div class="skill-list">SPSS, R, Python, jspsych, PsychoPy</div>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-label">Research Methods</span>
+                    <div class="skill-list">Experimental Design, Psychometrics, Qualitative Coding, Literature Review</div>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-label">Languages</span>
+                    <div class="skill-list">English (CET 6, Academic Writing)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Awards -->
+    <section id="awards">
+        <div class="section-header">
+            <h2 class="section-title">荣誉奖项</h2>
+            <span class="section-subtitle">HONORS & AWARDS</span>
+        </div>
+         <div class="award-row">
+            <span class="award-name">全国国际大学生创新大赛（2025） | 国家级银奖</span>
+            <span class="award-date">2025.10</span>
+        </div>
+        <div class="award-row">
+            <span class="award-name">浙江省国际大学生创新大赛（2025） | 省级金奖</span>
+            <span class="award-date">2025.08</span>
+        </div>
+        <div class="award-row">
+            <span class="award-name">浙江省第二十四届大学生多媒体作品设计竞赛 | 省级二等奖</span>
+            <span class="award-date">2025.12</span>
+        </div>
+        <div class="award-row">
+            <span class="award-name">宁波大学 | 校级特等奖学金</span>
+            <span class="award-date">2023.10</span>
+        </div>
+    </section>
+
+    <!-- 6. Portfolio -->
+    <section id="portfolio">
+        <div class="section-header">
+            <h2 class="section-title">科研作品集</h2>
+            <span class="section-subtitle">PORTFOLIO</span>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-card">
+                    <div>
+                        <div class="p-title">心理旋转研究报告</div>
+                        <div class="p-desc">完整实验报告，含假设、方法、结果与讨论 (PDF, 2.3MB)</div>
+                    </div>
+                    <div class="p-action">Download</div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-card">
+                    <div>
+                        <div class="p-title">课程设计方案</div>
+                        <div class="p-desc">教案设计 (PDF, 1.5MB)</div>
+                    </div>
+                    <div class="p-action">Download</div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-card">
+                    <div>
+                        <div class="p-title">数据分析可视化图表集</div>
+                        <div class="p-desc">基于 R 语言生成的统计图表与结果解读 (PDF, 3.1MB)</div>
+                    </div>
+                    <div class="p-action">Download</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-msg">感谢您的阅览，期待与您进行学术上的深入交流。</div>
+        <a href="mailto:yulu.ye@example.com" class="footer-email"> 2225172769@qq.com</a>
+        <div class="footer-update">Last Updated: March 18, 2026</div>
+    </footer>
+</div>
+
+<script>
+    // 简单的移动端菜单切换逻辑
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+
+    menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        
+        // 简单的动画效果：改变汉堡按钮形状
+        const spans = menuBtn.querySelectorAll('span');
+        if (navLinks.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+
+    // 点击链接后自动关闭菜单
+    function closeMenu() {
+        if (window.innerWidth <= 768) {
+            navLinks.classList.remove('active');
+            const spans = menuBtn.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
