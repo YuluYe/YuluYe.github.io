@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 关键修改：确保 viewport 设置正确，禁止用户缩放导致布局错乱 -->
+    <!-- 关键：禁止用户缩放，确保布局稳定 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>欢迎来到我的首页</title>
+    <title>Welcome | Yulu Ye</title>
     
-    <!-- 保留原有的外部样式表 -->
+    <!-- 保留原有的外部样式表 (如果它们加载很慢，建议后续也优化它们) -->
     <link rel="stylesheet" href="./style_new.css"/>
     <link rel="stylesheet" href="./style_base.css"/>
 
-    <!-- 新增：专门用于适配移动端的内部样式 -->
     <style>
-        /* 全局重置，防止默认边距导致手机端出现滚动条 */
+        /* --- 全局重置 --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -22,115 +21,167 @@
         body, html {
             height: 100%;
             width: 100%;
-            overflow-x: hidden; /* 防止横向滚动 */
+            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 使用系统字体加速渲染 */
+            background-color: #f5f5f5; /* 防止背景白屏 */
         }
 
-        /* 背景容器适配 */
+        /* --- 背景容器 --- */
         #bkground {
-            min-height: 100vh; /* 确保至少占满整个屏幕高度 */
-            display: flex;     /* 使用 Flexbox 居中内容 */
+            min-height: 100vh;
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;     /* 给手机端留出边缘距离 */
+            padding: 20px;
             width: 100%;
+            /* 添加一个柔和的背景渐变，提升质感 */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
 
-        /* 信息卡片适配 */
+        /* --- 信息卡片 --- */
         .my-information {
             text-align: center;
             width: 100%;
-            max-width: 600px; /* 在大屏幕上限制最大宽度，避免太宽 */
-            padding: 2rem;
-            /* 可选：添加一点背景或阴影让内容更突出，视你的原设计而定 */
-            /* background: rgba(255, 255, 255, 0.9); */
-            /* border-radius: 15px; */
+            max-width: 500px; /* 限制最大宽度，更精致 */
+            padding: 2.5rem 2rem;
+            background: rgba(255, 255, 255, 0.85); /* 半透明白底 */
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
         }
 
-        /* 图标适配 */
-        .my-information i {
-            display: inline-block;
-            margin-bottom: 15px;
-            /* 假设这是一个头像或图标，确保它不会太大 */
-            max-width: 100px; 
-            height: auto;
+        /* --- 头像/图标区域优化 (核心修复) --- */
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            /* 加载前的占位背景 */
+            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* 字体大小响应式调整 */
+        /* 如果有 img 标签，应用以下样式 */
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保证图片不变形 */
+            opacity: 0; /* 初始隐藏 */
+            transition: opacity 0.6s ease-in-out;
+            display: block;
+        }
+
+        /* 图片加载完成后的类 */
+        .avatar-container img.loaded {
+            opacity: 1;
+        }
+
+        /* 如果没有图片，显示的默认图标 (纯CSS绘制，无需加载) */
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #aaa;
+            background: #eee;
+        }
+
+        /* --- 文字排版 --- */
         .my-information h3 {
-            font-size: 2rem; /* 默认大小 */
+            font-size: 2rem;
+            color: #333;
             margin-bottom: 0.5rem;
-            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        .my-information h4, 
+        .my-information h4 {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
         .my-information h5 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            font-weight: normal;
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .my-information p {
             font-size: 1rem;
-            margin-bottom: 0.8rem;
+            color: #666;
+            margin-bottom: 0.6rem;
             line-height: 1.6;
         }
 
-        /* 按钮适配：增大点击区域，方便手指触摸 */
-        .my-information a {
+        /* --- 按钮优化 --- */
+        .enter-btn {
             display: inline-block;
-            margin-top: 15px;
-            padding: 12px 30px; /* 增加内边距，让按钮更好点 */
+            margin-top: 25px;
+            padding: 14px 40px;
             text-decoration: none;
             font-size: 1.1rem;
-            border-radius: 25px; /* 圆角按钮更适合移动端 */
-            transition: all 0.3s ease;
-            /* 如果原CSS没有背景色，这里可以加一个默认的，方便看见按钮 */
-            background-color: #aeaeaf8c; 
+            font-weight: 600;
             color: white;
+            background: linear-gradient(90deg, #2A3B4C 0%, #3E5266 100%); /* 使用你的主题色 */
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(42, 59, 76, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* 移除手机点击高亮 */
         }
 
-        .my-information a:active {
-            transform: scale(0.95); /* 点击时的反馈效果 */
+        .enter-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(42, 59, 76, 0.2);
         }
 
-        /* --- 媒体查询：针对平板和手机的具体调整 --- */
-        
-        /* 平板及以下 (宽度小于 768px) */
-        @media (max-width: 768px) {
+        .enter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 59, 76, 0.4);
+        }
+
+        /* --- 移动端适配 --- */
+        @media (max-width: 480px) {
             #bkground {
                 padding: 15px;
+                align-items: center; /* 确保垂直居中 */
             }
-            .my-information h3 {
-                font-size: 1.8rem;
-            }
-            .my-information h4, 
-            .my-information h5 {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* 手机及以下 (宽度小于 480px) */
-        @media (max-width: 480px) {
+            
             .my-information {
-                padding: 1rem; /* 减小内边距，利用更多空间 */
+                padding: 2rem 1.5rem;
+                width: 100%;
             }
-            
+
+            .avatar-container {
+                width: 100px;
+                height: 100px;
+            }
+
             .my-information h3 {
-                font-size: 1.5rem; /* 缩小标题 */
+                font-size: 1.6rem;
             }
-            
-            .my-information h4, 
-            .my-information h5 {
+
+            .my-information h4 {
                 font-size: 1rem;
             }
 
             .my-information p {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
 
-            .my-information a {
-                width: 100%; /* 手机上让按钮占满整行，更容易点击 */
-                padding: 15px 0;
+            .enter-btn {
+                width: 100%; /* 手机端按钮全宽，更易点击 */
+                padding: 16px 0;
                 text-align: center;
             }
         }
@@ -139,16 +190,59 @@
 <body>
     <div id="bkground">
         <div class="my-information">
-            <!-- 如果有头像图片，建议在这里用 <img> 标签，如果是图标字体保持 <i> -->
-            <i></i> 
+            
+            <!-- 
+               【重要优化】头像区域 
+               1. 使用 div 包裹，方便控制占位背景
+               2. 如果你有图片，取消下面 img 标签的注释，并替换 src
+               3. 如果没有图片，会显示默认的 "Y" 字母占位
+            -->
+            <div class="avatar-container">
+                <!-- 
+                     操作指南：
+                     1. 将你的头像压缩为 webp 格式 (推荐工具: squoosh.app)
+                     2. 宽度设为 300px 即可 (不需要太大)
+                     3. 放入 img 文件夹，命名为 avatar.webp
+                     4. 修改下面的 src="./img/avatar.webp"
+                -->
+                <img src="./img/avatar.webp" 
+                     alt="Yulu Ye" 
+                     onload="this.classList.add('loaded')" 
+                     onerror="this.style.display='none'; document.querySelector('.avatar-placeholder').style.display='flex'">
+                
+                <!-- 默认占位符 (图片加载失败或未提供时显示) -->
+                <div class="avatar-placeholder" style="display: none;">Y</div>
+            </div>
+
             <h3>Yulu&nbsp;Ye</h3>
             <h4>Ningbo University</h4>
             <h5>College Of Teacher Education</h5> 
+            
             <p>Welcome to my personal website!</p> 
             <p>If you want to know more about me,</p>
-            <p>please click below:</p>
-            <a href="./phfriendly.html">Enter</a> 
+            <p>please click below:</p> 
+            
+            <a href="./phfriendly.html" class="enter-btn">Enter My Portfolio</a> 
         </div>
     </div>
+
+    <script>
+        // 简单的脚本：如果图片不存在，自动显示占位符
+        // 上面的 onerror 已经处理了大部分情况，这里作为双重保险
+        document.addEventListener("DOMContentLoaded", function() {
+            const img = document.querySelector('.avatar-container img');
+            const placeholder = document.querySelector('.avatar-placeholder');
+            
+            if (img && !img.complete) {
+                // 图片还在加载中，保持 placeholder 隐藏，等待 onload
+            } else if (img && img.src && img.src.includes('avatar.webp')) {
+                // 如果图片源存在但加载失败，onerror 会触发
+            } else {
+                // 如果没有设置 src，直接显示占位符
+                if(img) img.style.display = 'none';
+                if(placeholder) placeholder.style.display = 'flex';
+            }
+        });
+    </script>
 </body>
 </html>
